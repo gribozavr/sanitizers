@@ -8,7 +8,7 @@
 # the instance and reload the script.
 
 MASTER_PORT=${MASTER_PORT:-9994}
-#ON_ERROR=${ON_ERROR:-shutdown now}
+ON_ERROR=${ON_ERROR:-shutdown now}
 
 BOT_DIR=/b
 
