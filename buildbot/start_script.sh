@@ -73,7 +73,7 @@ EOF
 
       buildslave stop $BOT_DIR
       apt-get remove -yq --purge buildbot-slave
-      apt-get install -yq -t stretch install buildbot-slave
+      apt-get install -yq -t stretch buildbot-slave
     ) && exit 0
   done
   exit 1
@@ -93,6 +93,7 @@ echo "Vitaly Buka <vitalybuka@google.com>" > $BOT_DIR/info/admin
 {
   uname -a | head -n1
   cmake --version | head -n1
+  clang --version | head -n1
   g++ --version | head -n1
   ld --version | head -n1
   date
