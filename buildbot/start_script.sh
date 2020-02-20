@@ -109,7 +109,7 @@ echo "Vitaly Buka <vitalybuka@google.com>" > $BOT_DIR/$n/info/admin
   lscpu
 } > $BOT_DIR/$n/info/host
 
-echo <<EOF >>/etc/default/buildslave
+cat <<EOF >>/etc/default/buildslave
 SLAVE_RUNNER=/usr/bin/buildslave
 SLAVE_ENABLED[$n]="1"
 SLAVE_NAME[$n]="buildslave$n"
