@@ -133,7 +133,7 @@ EOF
 sleep 30
 for n in 1 2; do
   cat $BOT_DIR/twistd.log
-  grep "slave is ready" $BOT_DIR/twistd.log || $ON_ERROR
+  grep "slave is ready" $BOT_DIR/$n/twistd.log || $ON_ERROR
 done
 
 # GCE can restart instance after 24h in the middle of the build.
