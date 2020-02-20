@@ -86,12 +86,6 @@ systemctl set-property buildslave.service TasksMax=100000
 
 chown buildbot:buildbot $BOT_DIR
 
-mkdir -p $BOT_DIR/ccache
-cat <<EOF >/var/lib/buildbot/.ccache/ccache.conf
-max_size = 50G
-cache_dir = $BOT_DIR/ccache
-EOF
-
 buildslave create-slave --allow-shutdown=signal $BOT_DIR lab.llvm.org:$MASTER_PORT "$1" "$2"
 
 echo "Vitaly Buka <vitalybuka@google.com>" > $BOT_DIR/info/admin
@@ -114,9 +108,15 @@ SLAVE_BASEDIR[1]=\"$BOT_DIR\"
 SLAVE_OPTIONS[1]=\"\"
 SLAVE_PREFIXCMD[1]=\"\"" > /etc/default/buildslave
 
+mkdir -p $BOT_DIR/ccache
 chown -R buildbot:buildbot $BOT_DIR
 systemctl daemon-reload
 service buildslave restart
+
+cat <<EOF >/var/lib/buildbot/.ccache/ccache.conf
+max_size = 50G
+cache_dir = $BOT_DIR/ccache
+EOF
 
 sleep 30
 cat $BOT_DIR/twistd.log
