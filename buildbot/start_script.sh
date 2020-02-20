@@ -34,6 +34,7 @@ mount -t tmpfs tmpfs -o size=80% $BOT_DIR
         subversion \
         g++ \
         ccache \
+        clang \
         cmake \
         binutils-gold \
         binutils-dev \
