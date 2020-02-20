@@ -71,9 +71,6 @@ EOF
         python \
         python-pip \
         python-psutil \
-        python-six \
-        python3-distutils \
-        python3-google-compute-engine \
         python3-psutil
 
       for n in 1 2; do
