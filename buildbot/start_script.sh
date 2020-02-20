@@ -132,7 +132,7 @@ EOF
 
 sleep 30
 for n in 1 2; do
-  cat $BOT_DIR/twistd.log
+  cat $BOT_DIR/$n/twistd.log
   grep "slave is ready" $BOT_DIR/$n/twistd.log || $ON_ERROR
 done
 
