@@ -71,7 +71,7 @@ EOF
         libssl-dev \
         libgss-dev
 
-      for b in 1 2; do
+      for n in 1 2; do
         buildslave stop $BOT_DIR/$n
       done
       apt-get remove -yq --purge buildbot-slave
@@ -92,7 +92,7 @@ chown buildbot:buildbot $BOT_DIR
 
 rm -f /etc/default/buildslave
 
-for b in 1 2; do
+for n in 1 2; do
 buildslave create-slave --allow-shutdown=signal $BOT_DIR/$n lab.llvm.org:$MASTER_PORT "$1" "$2"
 shift
 shift
@@ -131,7 +131,7 @@ cache_dir = $BOT_DIR/ccache
 EOF
 
 sleep 30
-for b in 1 2; do
+for n in 1 2; do
   cat $BOT_DIR/twistd.log
   grep "slave is ready" $BOT_DIR/twistd.log || $ON_ERROR
 done
