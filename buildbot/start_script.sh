@@ -47,7 +47,7 @@ EOF
         subversion \
         g++ \
         ccache \
-        clang \
+        clang-8 \
         cmake \
         libctypes-ocaml-dev \
         binutils-gold \
@@ -71,7 +71,9 @@ EOF
         libssl-dev \
         libgss-dev
 
-      buildslave stop $BOT_DIR
+      for b in 1 2; do
+        buildslave stop $BOT_DIR/$n
+      done
       apt-get remove -yq --purge buildbot-slave
       apt-get install -yq -t stretch buildbot-slave
     ) && exit 0
@@ -86,9 +88,14 @@ systemctl set-property buildslave.service TasksMax=100000
 
 chown buildbot:buildbot $BOT_DIR
 
-buildslave create-slave --allow-shutdown=signal $BOT_DIR lab.llvm.org:$MASTER_PORT "$1" "$2"
+rm -f /etc/default/buildslave
 
-echo "Vitaly Buka <vitalybuka@google.com>" > $BOT_DIR/info/admin
+for b in 1 2; do
+buildslave create-slave --allow-shutdown=signal $BOT_DIR/$n lab.llvm.org:$MASTER_PORT "$1" "$2"
+shift
+shift
+
+echo "Vitaly Buka <vitalybuka@google.com>" > $BOT_DIR/$n/info/admin
 
 {
   uname -a | head -n1
@@ -98,15 +105,18 @@ echo "Vitaly Buka <vitalybuka@google.com>" > $BOT_DIR/info/admin
   ld --version | head -n1
   date
   lscpu
-} > $BOT_DIR/info/host
+} > $BOT_DIR/$n/info/host
 
-echo "SLAVE_RUNNER=/usr/bin/buildslave
-SLAVE_ENABLED[1]=\"1\"
-SLAVE_NAME[1]=\"buildslave1\"
-SLAVE_USER[1]=\"buildbot\"
-SLAVE_BASEDIR[1]=\"$BOT_DIR\"
-SLAVE_OPTIONS[1]=\"\"
-SLAVE_PREFIXCMD[1]=\"\"" > /etc/default/buildslave
+echo <<EOF >>/etc/default/buildslave
+SLAVE_RUNNER=/usr/bin/buildslave
+SLAVE_ENABLED[$n]="1"
+SLAVE_NAME[$n]="buildslave$n"
+SLAVE_USER[$n]="buildbot"
+SLAVE_BASEDIR[$n]="$BOT_DIR/$n"
+SLAVE_OPTIONS[$n]=""
+SLAVE_PREFIXCMD[$n]=""
+EOF
+done
 
 mkdir -p $BOT_DIR/ccache
 chown -R buildbot:buildbot $BOT_DIR
@@ -119,8 +129,10 @@ cache_dir = $BOT_DIR/ccache
 EOF
 
 sleep 30
-cat $BOT_DIR/twistd.log
-grep "slave is ready" $BOT_DIR/twistd.log || $ON_ERROR
+for b in 1 2; do
+  cat $BOT_DIR/twistd.log
+  grep "slave is ready" $BOT_DIR/twistd.log || $ON_ERROR
+done
 
 # GCE can restart instance after 24h in the middle of the build.
 # Gracefully restart before that happen.
