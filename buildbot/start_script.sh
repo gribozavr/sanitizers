@@ -58,10 +58,8 @@ EOF
         g++-multilib \
         gawk \
         dos2unix \
-        libxml2-dev
-
-      # Only for fuzzing
-      apt-get install -yq \
+        libxml2-dev \
+        python-psutil \
         git \
         libtool \
         m4 \
@@ -69,7 +67,14 @@ EOF
         libgcrypt-dev \
         liblzma-dev \
         libssl-dev \
-        libgss-dev
+        libgss-dev \
+        python \
+        python-pip \
+        python-psutil \
+        python-six \
+        python3-distutils \
+        python3-google-compute-engine \
+        python3-psutil
 
       for n in 1 2; do
         buildslave stop $BOT_DIR/$n
