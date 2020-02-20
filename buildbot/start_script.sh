@@ -36,6 +36,7 @@ mount -t tmpfs tmpfs -o size=80% $BOT_DIR
         ccache \
         clang \
         cmake \
+        libctypes-ocaml-dev \
         binutils-gold \
         binutils-dev \
         ninja-build \
