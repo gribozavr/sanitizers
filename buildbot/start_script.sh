@@ -83,6 +83,8 @@ EOF
 
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.gold" 20
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
+update-alternatives --install "/usr/bin/clang" "clang" "/usr/bin/clang-8" 10
+update-alternatives --install "/usr/bin/clang++" "clang++" "/usr/bin/clang++-8" 10
 
 systemctl set-property buildslave.service TasksMax=100000
 
