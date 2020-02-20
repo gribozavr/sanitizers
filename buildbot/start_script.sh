@@ -16,6 +16,19 @@ mount -t tmpfs tmpfs /tmp
 mkdir -p $BOT_DIR
 mount -t tmpfs tmpfs -o size=80% $BOT_DIR
 
+cat <<EOF >/etc/apt/sources.list.d/stretch.list
+deb http://deb.debian.org/debian/ stretch main
+deb-src http://deb.debian.org/debian/ stretch main
+deb http://security.debian.org/ stretch/updates main
+deb-src http://security.debian.org/ stretch/updates main
+deb http://deb.debian.org/debian/ stretch-updates main
+deb-src http://deb.debian.org/debian/ stretch-updates main
+EOF
+
+cat <<EOF >/etc/apt/apt.conf.d/99stretch
+APT::Default-Release "buster";
+EOF
+
 (
   SLEEP=0
   for i in `seq 1 5`; do
@@ -60,7 +73,7 @@ mount -t tmpfs tmpfs -o size=80% $BOT_DIR
 
       buildslave stop $BOT_DIR
       apt-get remove -yq --purge buildbot-slave
-      apt-get install -yq buildbot-slave
+      apt-get install -yq -t stretch install buildbot-slave
     ) && exit 0
   done
   exit 1
