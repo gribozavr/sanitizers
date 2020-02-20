@@ -7,7 +7,7 @@
 # with GCE UI or "sudo shutdown now" over ssh. GCE will recreate
 # the instance and reload the script.
 
-MASTER_PORT=${MASTER_PORT:-9990}
+MASTER_PORT=${MASTER_PORT:-9994}
 ON_ERROR=${ON_ERROR:-shutdown now}
 
 BOT_DIR=/b
@@ -26,7 +26,6 @@ mount -t tmpfs tmpfs -o size=80% $BOT_DIR
       set -e
       dpkg --add-architecture i386
       apt-get update -y
-      curl "https://repo.stackdriver.com/stack-install.sh" | bash -s -- --write-gcm 
 
       # Logs consume a lot of storage space.
       apt-get remove -yq --purge auditd puppet-agent google-fluentd
@@ -34,6 +33,7 @@ mount -t tmpfs tmpfs -o size=80% $BOT_DIR
       apt-get install -yq \
         subversion \
         g++ \
+        ccache \
         cmake \
         binutils-gold \
         binutils-dev \
@@ -72,14 +72,12 @@ systemctl set-property buildslave.service TasksMax=100000
 chown buildbot:buildbot $BOT_DIR
 
 buildslave create-slave --allow-shutdown=signal $BOT_DIR lab.llvm.org:$MASTER_PORT \
-  "sanitizer-$(hostname | cut -d '-' -f2)" \
-  "$(gsutil cat gs://sanitizer-buildbot/buildbot_password)"
+  "sanitizer-gribozavr4" \
+  "$1"
 
 echo "Vitaly Buka <vitalybuka@google.com>" > $BOT_DIR/info/admin
 
 {
-  echo "How to reproduce locally: https://github.com/google/sanitizers/wiki/SanitizerBotReproduceBuild"
-  echo
   uname -a | head -n1
   cmake --version | head -n1
   g++ --version | head -n1
