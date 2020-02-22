@@ -47,38 +47,106 @@ EOF
       apt-get remove -qq -y --purge auditd puppet-agent google-fluentd
 
       apt-get install -qq -y \
-        subversion \
-        g++ \
-        ccache \
-        clang-8 \
-        cmake \
-        libctypes-ocaml-dev \
-        binutils-gold \
+        acpi-support-base \
+        apt-transport-https \
+        aptitude \
+        auditd \
+        automake \
         binutils-dev \
-        ninja-build \
-        pkg-config \
-        gcc-multilib \
+        binutils-gold \
+        ccache \
+        clang \
+        clang-8 \
+        cloud-guest-utils \
+        cmake \
+        curl \
+        dos2unix \
+        drawfork-puppet-manifests \
+        e2fsprogs \
+        ethtool \
+        g++ \
         g++-multilib \
         gawk \
-        dos2unix \
-        libxml2-dev \
-        python-psutil \
+        gcc-multilib \
         git \
-        libtool \
-        m4 \
-        automake \
+        gnupg-agent \
+        google-cloud-packages-archive-keyring \
+        google-cloud-sdk \
+        google-fluentd \
+        google-fluentd-catch-all-config \
+        grub-pc \
+        htop \
+        ifupdown \
+        iotop \
+        iproute2 \
+        iptables \
+        iputils-ping \
+        isc-dhcp-client \
+        kpartx \
+        less \
+        libc-l10n \
+        libctypes-ocaml-dev \
         libgcrypt-dev \
-        liblzma-dev \
-        libssl-dev \
         libgss-dev \
+        liblocale-gettext-perl \
+        liblzma-dev \
+        libounit-ocaml-dev \
+        libpam-modules \
+        libpam-modules-bin \
+        libpam-runtime \
+        libpython-dev \
+        libssl-dev \
+        libtext-charwidth-perl \
+        libtext-iconv-perl \
+        libtool \
+        libxml2-dev \
+        locales \
+        login \
+        logrotate \
+        lsb-base \
+        lsb-release \
+        m4 \
+        make \
+        man-db \
+        mawk \
+        mount \
+        nano \
+        ncurses-base \
+        ncurses-bin \
+        net-tools \
+        netbase \
+        ninja-build \
+        ntp \
+        ocaml-findlib \
+        ocaml-nox \
+        opam \
+        parted \
+        passwd \
+        perl-base \
+        pinentry-curses \
+        pkg-config \
+        procps \
+        puppet-agent \
         python \
         python-pip \
         python-psutil \
+        python-six \
+        python3-buildbot-worker \
+        python3-distutils \
+        python3-google-compute-engine \
         python3-psutil \
-        libounit-ocaml-dev \
-        ocaml-nox \
-        opam \
-        ocaml-findlib
+        readline-common \
+        rsyslog \
+        screen \
+        sed \
+        sensible-utils \
+        subversion \
+        sudo \
+        task-ssh-server \
+        unattended-upgrades \
+        vim \
+        vim-nox \
+        wget
 
       for n in 1 2; do
         buildslave stop $BOT_DIR/$n
