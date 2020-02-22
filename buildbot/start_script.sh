@@ -44,8 +44,7 @@ EOF
       apt-get -qq -y upgrade
 
       # Logs consume a lot of storage space.
-      apt-get remove -qq -y --purge auditd puppet-agent
-      #google-fluentd
+      apt-get remove -qq -y --purge auditd puppet-agent google-fluentd
 
       apt-get install -qq -y \
         acpi-support-base \
