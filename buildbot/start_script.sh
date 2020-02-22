@@ -75,6 +75,7 @@ EOF
         python-pip \
         python-psutil \
         python3-psutil \
+        libounit-ocaml-dev \
         ocaml-nox \
         opam \
         ocaml-findlib
