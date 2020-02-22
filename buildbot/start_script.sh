@@ -16,6 +16,8 @@ mount -t tmpfs tmpfs /tmp
 mkdir -p $BOT_DIR
 mount -t tmpfs tmpfs -o size=80% $BOT_DIR
 
+systemctl daemon-reload
+
 cat <<EOF >/etc/apt/sources.list.d/stretch.list
 deb http://deb.debian.org/debian/ stretch main
 deb-src http://deb.debian.org/debian/ stretch main
