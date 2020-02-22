@@ -151,7 +151,7 @@ EOF
         #cloud-guest-utils
 
       for n in 1 2; do
-        buildslave stop $BOT_DIR/$n
+        [[ ! -d $BOT_DIR/$n ]] || buildslave stop $BOT_DIR/$n
       done
       apt-get remove -qq -y --purge buildbot-slave
       apt-get install -qq -y -t stretch buildbot-slave
