@@ -36,7 +36,7 @@ EOF
     SLEEP=$(( SLEEP + 10))
 
     (
-      set -e
+      set -ex
       dpkg --add-architecture i386
       echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
       dpkg --configure -a
@@ -59,7 +59,9 @@ EOF
         g++ \
         g++-multilib \
         gawk \
-        gcc-multilib \
+        gcc-multilib
+        
+      apt-get install -qq -y \
         git \
         kpartx \
         libc-l10n \
@@ -73,7 +75,9 @@ EOF
         libpam-modules-bin \
         libpam-runtime \
         libpython-dev \
-        libssl-dev \
+        libssl-dev
+        
+      apt-get install -qq -y \
         libtext-charwidth-perl \
         libtext-iconv-perl \
         libtool \
@@ -91,7 +95,9 @@ EOF
         perl-base \
         pinentry-curses \
         procps \
-        python \
+        python
+        
+      apt-get install -qq -y \
         python-pip \
         python-psutil \
         python-six \
