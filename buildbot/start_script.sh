@@ -7,7 +7,7 @@
 # with GCE UI or "sudo shutdown now" over ssh. GCE will recreate
 # the instance and reload the script.
 
-MASTER_PORT=${MASTER_PORT:-9994}
+MASTER_PORT=${MASTER_PORT:-9990}
 ON_ERROR=${ON_ERROR:-shutdown now}
 
 BOT_DIR=/b
@@ -38,12 +38,15 @@ EOF
     (
       set -e
       dpkg --add-architecture i386
-      apt-get update -y
+      echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+      dpkg --configure -a
+      apt-get -qq -y update
+      apt-get -qq -y upgrade
 
       # Logs consume a lot of storage space.
-      apt-get remove -yq --purge auditd puppet-agent google-fluentd
+      apt-get remove -qq -y --purge auditd puppet-agent google-fluentd
 
-      apt-get install -yq \
+      apt-get install -qq -y \
         subversion \
         g++ \
         ccache \
@@ -76,8 +79,8 @@ EOF
       for n in 1 2; do
         buildslave stop $BOT_DIR/$n
       done
-      apt-get remove -yq --purge buildbot-slave
-      apt-get install -yq -t stretch buildbot-slave
+      apt-get remove -qq -y --purge buildbot-slave
+      apt-get install -qq -y -t stretch buildbot-slave
     ) && exit 0
   done
   exit 1
