@@ -41,7 +41,7 @@ EOF
       echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
       dpkg --configure -a
       apt-get -qq -y update
-      #apt-get -qq -y upgrade
+      apt-get -qq -y upgrade
 
       # Logs consume a lot of storage space.
       #apt-get remove -qq -y --purge auditd puppet-agent google-fluentd
@@ -59,9 +59,7 @@ EOF
         g++ \
         g++-multilib \
         gawk \
-        gcc-multilib
-        
-      apt-get install -qq -y \
+        gcc-multilib \
         git \
         kpartx \
         libc-l10n \
@@ -75,9 +73,7 @@ EOF
         libpam-modules-bin \
         libpam-runtime \
         libpython-dev \
-        libssl-dev
-        
-      apt-get install -qq -y \
+        libssl-dev \
         libtext-charwidth-perl \
         libtext-iconv-perl \
         libtool \
@@ -94,10 +90,9 @@ EOF
         opam \
         perl-base \
         pinentry-curses \
+        pkg-config \
         procps \
-        python
-        
-      apt-get install -qq -y \
+        python \
         python-pip \
         python-psutil \
         python-six \
@@ -108,10 +103,9 @@ EOF
         sensible-utils \
         subversion \
         wget \
-        unattended-upgrades
         
+        #unattended-upgrades
         #gnupg-agent \
-        #pkg-config \
         #acpi-support-base \
         #ethtool \
         #apt-transport-https \
