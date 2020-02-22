@@ -47,7 +47,6 @@ EOF
       #apt-get remove -qq -y --purge auditd puppet-agent google-fluentd
 
       apt-get install -qq -y \
-        acpi-support-base \
         automake \
         binutils-dev \
         binutils-gold \
@@ -62,7 +61,6 @@ EOF
         gawk \
         gcc-multilib \
         git \
-        gnupg-agent \
         kpartx \
         libc-l10n \
         libctypes-ocaml-dev \
@@ -92,7 +90,6 @@ EOF
         opam \
         perl-base \
         pinentry-curses \
-        pkg-config \
         procps \
         python \
         python-pip \
@@ -106,6 +103,9 @@ EOF
         subversion \
         wget
         
+        #gnupg-agent \
+        #pkg-config \
+        #acpi-support-base \
         #ethtool \
         #apt-transport-https \
         #aptitude \
