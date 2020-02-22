@@ -54,9 +54,7 @@ EOF
         binutils-dev \
         binutils-gold \
         ccache \
-        clang \
         clang-8 \
-        cloud-guest-utils \
         cmake \
         curl \
         dos2unix \
@@ -149,6 +147,8 @@ EOF
         #iproute2
         #iptables
         #drawfork-puppet-manifests
+        #clang
+        #cloud-guest-utils
 
       for n in 1 2; do
         buildslave stop $BOT_DIR/$n
