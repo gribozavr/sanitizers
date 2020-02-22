@@ -96,14 +96,14 @@ EOF
         python-pip \
         python-psutil \
         python-six \
-        python3-distutils \
-        python3-google-compute-engine \
         python3-psutil \
         readline-common \
         sensible-utils \
         subversion \
         wget \
         
+        #python3-distutils \
+        #python3-google-compute-engine \
         #unattended-upgrades
         #gnupg-agent \
         #acpi-support-base \
