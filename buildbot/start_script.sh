@@ -50,7 +50,6 @@ EOF
         acpi-support-base \
         apt-transport-https \
         aptitude \
-        auditd \
         automake \
         binutils-dev \
         binutils-gold \
@@ -61,7 +60,6 @@ EOF
         cmake \
         curl \
         dos2unix \
-        drawfork-puppet-manifests \
         e2fsprogs \
         ethtool \
         g++ \
@@ -70,16 +68,6 @@ EOF
         gcc-multilib \
         git \
         gnupg-agent \
-        google-cloud-packages-archive-keyring \
-        google-cloud-sdk \
-        google-fluentd \
-        google-fluentd-catch-all-config \
-        grub-pc \
-        htop \
-        ifupdown \
-        iotop \
-        iproute2 \
-        iptables \
         iputils-ping \
         isc-dhcp-client \
         kpartx \
@@ -149,6 +137,18 @@ EOF
         
         #python3-buildbot-worker
         #linux-image-amd64
+        #auditd
+        #google-cloud-packages-archive-keyring
+        #google-cloud-sdk
+        #google-fluentd
+        #google-fluentd-catch-all-config
+        #grub-pc
+        #htop
+        #ifupdown
+        #iotop
+        #iproute2
+        #iptables
+        #drawfork-puppet-manifests
 
       for n in 1 2; do
         buildslave stop $BOT_DIR/$n
