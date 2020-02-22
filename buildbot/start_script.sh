@@ -131,7 +131,6 @@ EOF
         python-pip \
         python-psutil \
         python-six \
-        python3-buildbot-worker \
         python3-distutils \
         python3-google-compute-engine \
         python3-psutil \
@@ -147,6 +146,9 @@ EOF
         vim \
         vim-nox \
         wget
+        
+        #python3-buildbot-worker
+        #linux-image-amd64
 
       for n in 1 2; do
         buildslave stop $BOT_DIR/$n
