@@ -49,8 +49,6 @@ EOF
 
       apt-get install -qq -y \
         acpi-support-base \
-        apt-transport-https \
-        aptitude \
         automake \
         binutils-dev \
         binutils-gold \
@@ -60,17 +58,13 @@ EOF
         curl \
         dos2unix \
         e2fsprogs \
-        ethtool \
         g++ \
         g++-multilib \
         gawk \
         gcc-multilib \
         git \
         gnupg-agent \
-        iputils-ping \
-        isc-dhcp-client \
         kpartx \
-        less \
         libc-l10n \
         libctypes-ocaml-dev \
         libgcrypt-dev \
@@ -88,32 +82,19 @@ EOF
         libtool \
         libxml2-dev \
         locales \
-        login \
-        logrotate \
-        lsb-base \
-        lsb-release \
         m4 \
         make \
-        man-db \
         mawk \
-        mount \
-        nano \
         ncurses-base \
         ncurses-bin \
-        net-tools \
-        netbase \
         ninja-build \
-        ntp \
         ocaml-findlib \
         ocaml-nox \
         opam \
-        parted \
-        passwd \
         perl-base \
         pinentry-curses \
         pkg-config \
         procps \
-        puppet-agent \
         python \
         python-pip \
         python-psutil \
@@ -122,18 +103,37 @@ EOF
         python3-google-compute-engine \
         python3-psutil \
         readline-common \
-        rsyslog \
-        screen \
-        sed \
         sensible-utils \
         subversion \
-        sudo \
-        task-ssh-server \
-        unattended-upgrades \
-        vim \
-        vim-nox \
         wget
         
+        #ethtool \
+        #apt-transport-https \
+        #aptitude \
+        #iputils-ping \
+        #isc-dhcp-client \
+        #less \
+        #login \
+        #logrotate \
+        #lsb-base \
+        #lsb-release \
+        #man-db \
+        #mount \
+        #nano \
+        #net-tools \
+        #netbase \
+        #ntp \
+        #parted \
+        #passwd \
+        #puppet-agent \
+        #rsyslog \
+        #screen \
+        #sed \
+        #task-ssh-server \
+        #unattended-upgrades \
+        #sudo \
+        #vim \
+        #vim-nox \
         #python3-buildbot-worker
         #linux-image-amd64
         #auditd
