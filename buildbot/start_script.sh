@@ -69,9 +69,6 @@ EOF
         liblocale-gettext-perl \
         liblzma-dev \
         libounit-ocaml-dev \
-        libpam-modules \
-        libpam-modules-bin \
-        libpam-runtime \
         libpython-dev \
         libssl-dev \
         libtext-charwidth-perl \
@@ -101,7 +98,10 @@ EOF
         sensible-utils \
         subversion \
         wget \
-        
+
+        #libpam-modules \
+        #libpam-modules-bin \
+        #libpam-runtime \
         #python3-distutils \
         #python3-google-compute-engine \
         #unattended-upgrades
