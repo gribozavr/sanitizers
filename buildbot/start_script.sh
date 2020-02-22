@@ -74,7 +74,10 @@ EOF
         python \
         python-pip \
         python-psutil \
-        python3-psutil
+        python3-psutil \
+        ocaml-nox \
+        opam \
+        ocaml-findlib
 
       for n in 1 2; do
         buildslave stop $BOT_DIR/$n
