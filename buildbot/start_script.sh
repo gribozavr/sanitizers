@@ -177,7 +177,7 @@ buildslave create-slave --allow-shutdown=signal $BOT_DIR/$n lab.llvm.org:$MASTER
 shift
 shift
 
-echo "Vitaly Buka <vitalybuka@google.com>" > $BOT_DIR/$n/info/admin
+echo "Dmitri Gribenko <gribozavr@gmail.com>" > $BOT_DIR/$n/info/admin
 
 {
   uname -a | head -n1
