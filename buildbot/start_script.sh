@@ -7,6 +7,8 @@
 # with GCE UI or "sudo shutdown now" over ssh. GCE will recreate
 # the instance and reload the script.
 
+set -x
+
 MASTER_PORT=${MASTER_PORT:-}
 [[ "${SKIP_START:-}" == "" ]] && exit 0
 
