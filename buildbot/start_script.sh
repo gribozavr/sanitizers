@@ -7,6 +7,9 @@
 # with GCE UI or "sudo shutdown now" over ssh. GCE will recreate
 # the instance and reload the script.
 
+MASTER_PORT=${MASTER_PORT:-}
+[[ "${SKIP_START:-}" == "" ]] && exit 0
+
 MASTER_PORT=${MASTER_PORT:-9990}
 ON_ERROR=${ON_ERROR:-shutdown now}
 
