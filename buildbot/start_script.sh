@@ -28,15 +28,17 @@ mount -t tmpfs tmpfs -o size=80% $BOT_DIR
     SLEEP=$(( SLEEP + 10))
 
     (
-      set -e
+      set -ex
       dpkg --add-architecture i386
-      apt-get update -y
-      curl "https://dl.google.com/cloudagents/install-logging-agent.sh" | bash -s --
+      echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+      dpkg --configure -a
+      apt-get -qq -y update
+      apt-get -qq -y upgrade
 
       # Logs consume a lot of storage space.
-      apt-get remove -yq --purge auditd puppet-agent google-fluentd
+      apt-get remove -qq -y --purge auditd puppet-agent google-fluentd
 
-      apt-get install -yq \
+      apt-get install -qq -y \
         subversion \
         g++ \
         cmake \
@@ -51,7 +53,7 @@ mount -t tmpfs tmpfs -o size=80% $BOT_DIR
         libxml2-dev
 
       # Only for fuzzing
-      apt-get install -yq \
+      apt-get install -qq -y \
         git \
         libtool \
         m4 \
@@ -62,8 +64,8 @@ mount -t tmpfs tmpfs -o size=80% $BOT_DIR
         libgss-dev
 
       buildslave stop $BOT_DIR
-      apt-get remove -yq --purge buildbot-slave
-      apt-get install -yq buildbot-slave
+      apt-get remove -qq -y --purge buildbot-slave
+      apt-get install -qq -y buildbot-slave
     ) && exit 0
   done
   exit 1
