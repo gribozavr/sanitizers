@@ -76,7 +76,7 @@ EOF
         libssl-dev \
         libgss-dev
 
-      buildslave stop $BOT_DIR
+      buildslave stop $BOT_DIR || true
       apt-get remove -qq -y --purge buildbot-slave
       apt-get install -qq -y -t stretch buildbot-slave
     ) && exit 0
@@ -87,7 +87,6 @@ EOF
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.gold" 20
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 
-systemctl stop buildslave.service
 systemctl set-property buildslave.service TasksMax=100000
 
 chown buildbot:buildbot $BOT_DIR
@@ -95,6 +94,8 @@ chown buildbot:buildbot $BOT_DIR
 buildslave create-slave -f --allow-shutdown=signal $BOT_DIR lab.llvm.org:$MASTER_PORT \
   "sanitizer-$(hostname | cut -d '-' -f2)" \
   "$(gsutil cat gs://sanitizer-buildbot/buildbot_password)"
+
+systemctl stop buildslave.service
 
 echo "Vitaly Buka <vitalybuka@google.com>" > $BOT_DIR/info/admin
 
