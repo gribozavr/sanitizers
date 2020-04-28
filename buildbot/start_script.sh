@@ -21,6 +21,19 @@ mount -t tmpfs tmpfs /tmp
 mkdir -p $BOT_DIR
 mount -t tmpfs tmpfs -o size=80% $BOT_DIR
 
+cat <<EOF >/etc/apt/sources.list.d/stretch.list
+deb http://deb.debian.org/debian/ stretch main
+deb-src http://deb.debian.org/debian/ stretch main
+deb http://security.debian.org/ stretch/updates main
+deb-src http://security.debian.org/ stretch/updates main
+deb http://deb.debian.org/debian/ stretch-updates main
+deb-src http://deb.debian.org/debian/ stretch-updates main
+EOF
+
+cat <<EOF >/etc/apt/apt.conf.d/99stretch
+APT::Default-Release "buster";
+EOF
+
 (
   SLEEP=0
   for i in `seq 1 5`; do
@@ -39,7 +52,6 @@ mount -t tmpfs tmpfs -o size=80% $BOT_DIR
       apt-get remove -qq -y --purge auditd puppet-agent google-fluentd
 
       apt-get install -qq -y \
-        subversion \
         g++ \
         cmake \
         binutils-gold \
@@ -65,7 +77,7 @@ mount -t tmpfs tmpfs -o size=80% $BOT_DIR
 
       buildslave stop $BOT_DIR
       apt-get remove -qq -y --purge buildbot-slave
-      apt-get install -qq -y buildbot-slave
+      apt-get install -qq -y -t stretch buildbot-slave
     ) && exit 0
   done
   exit 1
@@ -78,7 +90,7 @@ systemctl set-property buildslave.service TasksMax=100000
 
 chown buildbot:buildbot $BOT_DIR
 
-buildslave create-slave --allow-shutdown=signal $BOT_DIR lab.llvm.org:$MASTER_PORT \
+buildslave create-slave -f --allow-shutdown=signal $BOT_DIR lab.llvm.org:$MASTER_PORT \
   "sanitizer-$(hostname | cut -d '-' -f2)" \
   "$(gsutil cat gs://sanitizer-buildbot/buildbot_password)"
 
@@ -95,13 +107,15 @@ echo "Vitaly Buka <vitalybuka@google.com>" > $BOT_DIR/info/admin
   lscpu
 } > $BOT_DIR/info/host
 
-echo "SLAVE_RUNNER=/usr/bin/buildslave
-SLAVE_ENABLED[1]=\"1\"
-SLAVE_NAME[1]=\"buildslave1\"
-SLAVE_USER[1]=\"buildbot\"
-SLAVE_BASEDIR[1]=\"$BOT_DIR\"
-SLAVE_OPTIONS[1]=\"\"
-SLAVE_PREFIXCMD[1]=\"\"" > /etc/default/buildslave
+cat > /etc/default/buildbot-worker <<EOF 
+SLAVE_ENABLED[1]=1
+SLAVE_NAME[1]="default"
+SLAVE_USER[1]="buildbot"
+SLAVE_BASEDIR[1]="$BOT_DIR"
+SLAVE_OPTIONS[1]=""
+SLAVE_PREFIXCMD[1]=""
+EOF
+
 
 chown -R buildbot:buildbot $BOT_DIR
 systemctl daemon-reload
