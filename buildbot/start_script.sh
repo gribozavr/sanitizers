@@ -46,7 +46,7 @@ EOF
       echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
       dpkg --configure -a
       apt-get -qq -y update
-      apt-get -qq -y upgrade
+      #apt-get -qq -y upgrade
 
       # Logs consume a lot of storage space.
       apt-get remove -qq -y --purge auditd puppet-agent google-fluentd
@@ -62,7 +62,8 @@ EOF
         g++-multilib \
         gawk \
         dos2unix \
-        libxml2-dev
+        libxml2-dev \
+        python3-distutils
 
       # Only for fuzzing
       apt-get install -qq -y \
@@ -86,6 +87,7 @@ EOF
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.gold" 20
 update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 
+systemctl stop buildslave.service
 systemctl set-property buildslave.service TasksMax=100000
 
 chown buildbot:buildbot $BOT_DIR
@@ -107,7 +109,7 @@ echo "Vitaly Buka <vitalybuka@google.com>" > $BOT_DIR/info/admin
   lscpu
 } > $BOT_DIR/info/host
 
-cat > /etc/default/buildbot-worker <<EOF 
+cat <<EOF >/etc/default/buildslave
 SLAVE_ENABLED[1]=1
 SLAVE_NAME[1]="default"
 SLAVE_USER[1]="buildbot"
@@ -119,7 +121,8 @@ EOF
 
 chown -R buildbot:buildbot $BOT_DIR
 systemctl daemon-reload
-service buildslave restart
+systemctl start buildslave.service
+systemctl status buildslave.service
 
 sleep 30
 cat $BOT_DIR/twistd.log
