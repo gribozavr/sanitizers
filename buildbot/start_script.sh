@@ -76,8 +76,6 @@ EOF
         libssl-dev \
         libgss-dev
 
-      buildslave stop $BOT_DIR || true
-      apt-get remove -qq -y --purge buildbot-slave
       apt-get install -qq -y -t stretch buildbot-slave
     ) && exit 0
   done
@@ -90,6 +88,8 @@ update-alternatives --install "/usr/bin/ld" "ld" "/usr/bin/ld.bfd" 10
 systemctl set-property buildslave.service TasksMax=100000
 
 chown buildbot:buildbot $BOT_DIR
+
+rm -f /b/buildbot.tac
 
 buildslave create-slave -f --allow-shutdown=signal $BOT_DIR lab.llvm.org:$MASTER_PORT \
   "sanitizer-$(hostname | cut -d '-' -f2)" \
