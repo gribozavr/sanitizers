@@ -94,6 +94,7 @@ EOF
         python-psutil \
         python-six \
         python3-psutil \
+        python3-distutils \
         readline-common \
         sensible-utils \
         subversion \
